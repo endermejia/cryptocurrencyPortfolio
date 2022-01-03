@@ -53,6 +53,15 @@ export class CryptocurrencyService {
       );
   }
 
+  getValueByAcronym(acronym: string): Observable<any> {
+    const cryptoValueUrl = `https://min-api.cryptocompare.com/data/price?fsym=${acronym}&tsyms=EUR`;
+    return this.http.get(cryptoValueUrl)
+      .pipe(
+        tap(_ => console.log('fetched cryptoCompare data')),
+        catchError(this.handleError('getCryptoCompareData', []))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead

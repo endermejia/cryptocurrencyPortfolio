@@ -3,6 +3,7 @@ import { Coin } from './coin'
 import { Line } from "./line";
 import { Portfolio } from "./portfolio";
 import {CryptocurrencyService} from "./cryptocurrency.service";
+import {stringify} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent {
   portfolios: Portfolio[] = [];
   lines: Line[] = [];
   realCoinsList: string[] = [];
+  valuesByAcronym: Array<any> = [];
 
   constructor(private cryptocurrencyService: CryptocurrencyService) { }
 
@@ -46,12 +48,32 @@ export class AppComponent {
         if (response && response.Data) {
           this.realCoinsList = Object.keys(response.Data);
           this.coins.filter(coin => this.realCoinsList.includes(coin.acronym));
+          this.getCoinValues();
         }
       });
   }
 
-  realCoin(coinName: string): boolean {
-    return this.realCoinsList.some(realCoin => realCoin === coinName);
+  getLinesByPortfolioId(id: number): Line[] {
+    return this.lines.filter(line => line.portfolioId === id);
+  }
+
+  getCoinByCoinId(id: number): Coin {
+    return <Coin>this.coins.find(coin => coin.id === id);
+  }
+
+  getCoinValues(): void {
+    this.coins.forEach(coin => {
+      this.cryptocurrencyService.getValueByAcronym(coin.acronym)
+        .subscribe(response => {
+          if(response && response.EUR){
+            coin.value = Number(response.EUR);
+          }
+        })
+    })
+  }
+
+  getValueByAmountAndCoin(amount: number, coin: Coin): string {
+    return coin.value ? Number(amount * coin.value).toString() : 'Unknown'
   }
 
 }
