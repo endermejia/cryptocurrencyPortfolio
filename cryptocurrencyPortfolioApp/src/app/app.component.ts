@@ -16,7 +16,6 @@ export class AppComponent {
   portfolios: Portfolio[] = [];
   lines: Line[] = [];
   realCoinsList: string[] = [];
-  valuesByAcronym: Array<any> = [];
 
   constructor(private cryptocurrencyService: CryptocurrencyService) { }
 
