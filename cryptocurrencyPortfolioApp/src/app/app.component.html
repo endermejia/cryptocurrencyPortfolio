@@ -17,7 +17,11 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1,
+  h1{
+    color: whitesmoke;
+    margin: 8px 0;
+  }
+
   h2,
   h3,
   h4,
@@ -301,5 +305,11 @@
     }
   }
 </style>
+<nav class="navbar navbar-dark bg-dark">
+  <h1>{{title}}</h1>
+  <!-- Navbar content -->
+</nav>
+<li *ngFor="let coin of coins">
+  {{coin.name}}
+</li>
 
-<h1>{{title}}</h1>
