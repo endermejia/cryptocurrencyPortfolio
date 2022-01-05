@@ -71,8 +71,8 @@ export class AppComponent {
     })
   }
 
-  getValueByAmountAndCoin(amount: number, coin: Coin): string {
-    return coin.value ? Number(amount * coin.value).toString() : 'Unknown'
+  getValueByAmountAndCoin(amount: number, coin: Coin): number {
+    return coin.value ? Number(amount * coin.value) : 0
   }
 
 }
