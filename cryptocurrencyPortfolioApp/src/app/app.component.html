@@ -3,9 +3,9 @@
   <!-- Navbar content -->
 </nav>
 <div *ngIf="portfolios && portfolios.length > 0"
-     class="card-columns">
+     class="card-columns m-3">
   <div *ngFor="let portfolio of portfolios"
-       class="card border-success bg-info m-3">
+       class="card bg-info">
     <div class="card-header border-success text-white">
       <h4 class="card-title">{{portfolio.name | uppercase}}</h4>
     </div>
@@ -17,7 +17,6 @@
         <p>Current value: {{getValueByAmountAndCoin(line.amount, getCoinByCoinId(line.coinId)) | currency: 'EUR'}}</p>
       </li>
     </ul>
-
   </div>
 </div>
 
